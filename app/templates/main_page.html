@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for g in games %}
+    <li><img src="/media/{{g.photo_game}}" align="left" width="100" height="120"/>
+        <b>Название игры: </b>{{g.game_name}}<br>
+{% endfor %}
+</body>
+</html>
