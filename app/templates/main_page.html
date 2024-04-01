@@ -5,8 +5,15 @@
     <title>Gameshop</title>
 </head>
 <body>
+    <h3>Список игр:</h3>
 {% for g in games %}
-    <li><img src="/media/{{g.photo_game}}" align="left" width="100" height="120"/>
+    <li><img src="/app/media/{{g.photo_game}}" align="left" width="100" height="120"/>
+        <b>Название игры: </b>{{g.game_name}}<br>
+{% endfor %}
+
+    <h3>Популярные игры:</h3>
+{% for g in queryset1 %}
+    <li><img src="/app/media/{{g.photo_game}}" align="left" width="100" height="120"/>
         <b>Название игры: </b>{{g.game_name}}<br>
 {% endfor %}
 </body>

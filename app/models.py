@@ -6,12 +6,10 @@ from django.urls import reverse
 class CustomUser(AbstractUser):
 
     def get_absolute_url(self):
-        return reverse('page_user', kwargs={'user_id':self.pk})
+        return reverse('page_user', kwargs={'user_id': self.pk})
 
     class Meta:
         db_table = 'CustomUser_app_db'
-
-
 
 
 class Game_account(models.Model):
@@ -28,12 +26,14 @@ class Game_account(models.Model):
 class Name_of_game(models.Model):
     game_name = models.CharField(max_length=255)
     photo_game = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фото')
-
+    quantity_purchased = models.IntegerField(default=0)
     class Meta:
         db_table = 'Name_of_game_app_db'
 
     def __str__(self):
         return self.game_name
+
+
 class Category(models.Model):
     category_name = models.CharField(max_length=255)
 
