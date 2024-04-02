@@ -30,20 +30,16 @@
         <nav>
             <ul class="nav">
                 <li>
-                    <a href="">Топ игр</a>
-                </li>
-                <li>
                     <a href="">Купить</a>
                 </li>
                 <li>
                     <a href="">Продать</a>
                 </li>
-                <li>
-                    <a href="">Регистрация</a>
-                </li>
-                <li>
-                    <a href="">Войти</a>
-                </li>
+                {% if request.user.is_authenticated %}
+					<li class="last">{{user.username}} | <a href="{% url 'logout' %}">Выйти</a></li>
+				{% else %}
+					<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+				{% endif %}
             </ul>
         </nav>
     </header>

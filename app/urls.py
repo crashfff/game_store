@@ -8,6 +8,7 @@ urlpatterns = [
     path('profile', profile_view, name='profile'),
     path('logout/', logout_user, name='logout'),
     path('register/', RegisterUser.as_view(), name='register'),
+    path('game/<game_name>/', game_page, name='photo'),
 
 ]
 

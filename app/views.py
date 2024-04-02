@@ -1,10 +1,10 @@
-
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
+from django.http import HttpResponseNotFound
 
 from .forms import RegisterUserForm
 from .models import *
@@ -24,9 +24,11 @@ class AppMain(ListView, LoginRequiredMixin):
         context['queryset1'] = Name_of_game.objects.order_by('quantity_purchased').reverse
         return context
 
+
 @login_required
 def profile_view(request):
     return render(request, 'profile.html')
+
 
 def logout_user(request):
     logout(request)
@@ -34,11 +36,7 @@ def logout_user(request):
     return redirect('main_page')
 
 
-class DataMixin:
-    pass
-
-
-class RegisterUser(DataMixin, CreateView):
+class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
@@ -46,10 +44,16 @@ class RegisterUser(DataMixin, CreateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
 
-
         return dict(list(context.items()))
 
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect('profile')
+
+
+def game_page(request, game_name):
+    all_name_game = Name_of_game.objects.filter(game_name=game_name)
+    if all_name_game:
+        return render(request, 'game.html', context={'game': game_name})
+    return HttpResponseNotFound('Page not found =(')
