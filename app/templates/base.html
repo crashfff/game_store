@@ -1,3 +1,8 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +11,27 @@
     <link rel="stylesheet" href="base.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <ul class="nav">
+                <li>
+                    <a href="">Купить</a>
+                </li>
+                <li>
+                    <a href="">Продать</a>
+                </li>
+                {% if request.user.is_authenticated %}
+					<li class="last">{{user.username}} | <a href="{% url 'logout' %}">Выйти</a></li>
+				{% else %}
+					<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+				{% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
 
 </body>
 </html>

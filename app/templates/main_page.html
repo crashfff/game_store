@@ -1,4 +1,8 @@
+{% extends "base.html" %}
 {% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,23 +12,10 @@
 </head>
 <body>
     <header>
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a href="">Купить</a>
-                </li>
-                <li>
-                    <a href="">Продать</a>
-                </li>
-                {% if request.user.is_authenticated %}
-					<li class="last">{{user.username}} | <a href="{% url 'logout' %}">Выйти</a></li>
-				{% else %}
-					<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
-				{% endif %}
-            </ul>
-        </nav>
+
     </header>
     <main>
+        {% block content %}
         <h3>Список игр:</h3>
         <ul class="list-games">
         {% for g in games %}
@@ -39,6 +30,7 @@
         <b>Название игры: </b>{{g.game_name}}<br>
         {% endfor %}
         </ul>
+        {% endblock content %}
     </main>
     <footer></footer>
 </body>
