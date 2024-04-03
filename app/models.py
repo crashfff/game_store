@@ -22,6 +22,8 @@ class Game_account(models.Model):
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
     is_published = models.BooleanField(default=True, verbose_name='Продажа')
 
+    class Meta:
+        db_table = 'Game_account_app_db'
 
 class Name_of_game(models.Model):
     game_name = models.CharField(max_length=255)
@@ -33,6 +35,8 @@ class Name_of_game(models.Model):
     def __str__(self):
         return self.game_name
 
+    def get_absolute_url(self):
+        return reverse('game', kwargs={'game_name': self.game_name})
 
 class Category(models.Model):
     category_name = models.CharField(max_length=255)

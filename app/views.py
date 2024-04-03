@@ -52,8 +52,15 @@ class RegisterUser(CreateView):
         return redirect('profile')
 
 
-def game_page(request, game_name):
-    all_name_game = Name_of_game.objects.filter(game_name=game_name)
-    if all_name_game:
-        return render(request, 'game.html', context={'game': game_name})
-    return HttpResponseNotFound('Page not found =(')
+class GamePage(ListView):
+    model = Name_of_game
+
+    def get_queryset(self, game_name=None):
+        queryset = Name_of_game.objects.get(game_name=game_name)
+        return queryset
+
+    def get(self, request, game_name=None, *args, **kwargs):
+        one_name_game = Name_of_game.objects.get(game_name=game_name)
+        if one_name_game:
+            return render(request, 'game.html', context={'game': one_name_game})
+        return HttpResponseNotFound('Page not found =(')

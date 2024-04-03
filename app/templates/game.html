@@ -11,7 +11,9 @@
 </head>
 <body>
     {% block content %}
-    {{game}}
+    <img src="/app/media/{{game.photo_game}}" align="left" width="300" height="320" />
+    <h1>{{game.game_name}}</h1>
+    <b>Количество покупок: </b>{{game.quantity_purchased}}<br>
     {% endblock content %}
 </body>
 </html>
