@@ -20,9 +20,16 @@
                 <li>
                     <a href="">Купить</a>
                 </li>
-                <li>
-                    <a href="">Продать</a>
-                </li>
+                {% if request.user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'sell' %}">Продать</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Продать</a>
+                    </li>
+                {% endif %}
+
                 {% if request.user.is_authenticated %}
 					<li class="last">{{user.username}} | <a href="{% url 'logout' %}">Выйти</a></li>
 				{% else %}

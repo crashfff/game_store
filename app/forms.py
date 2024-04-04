@@ -20,3 +20,15 @@ class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.TextInput(attrs={'class': 'form-input'}))
 
+class SellForm(forms.ModelForm):
+    def __init__(self, *arg, **kwargs):
+        super().__init__(*arg, **kwargs)
+        self.fields['name_of_game'].empty_label = "Игра не выбрана"
+
+    class Meta:
+        model = Game_account
+        fields = ['name_of_game', 'description', 'price']
+        widgets = {
+            'description': forms.Textarea(attrs={'cols': 60, 'rows': 5}),
+
+        }

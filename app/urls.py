@@ -9,6 +9,7 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
     path('register/', RegisterUser.as_view(), name='register'),
     path('game/<game_name>/', GamePage.as_view(), name='game'),
+    path('sell/', SellGame.as_view(), name='sell'),
 
 ]
 

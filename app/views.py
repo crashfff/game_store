@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
 from django.http import HttpResponseNotFound
 
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, SellForm
 from .models import *
 
 
@@ -64,3 +64,20 @@ class GamePage(ListView):
         if one_name_game:
             return render(request, 'game.html', context={'game': one_name_game})
         return HttpResponseNotFound('Page not found =(')
+
+class SellGame(CreateView, SellForm, LoginRequiredMixin):
+    form_class = SellForm
+    template_name = 'sell.html'
+    model = Game_account
+    success_url = reverse_lazy('profile')
+
+    def get_context_data(self, **kwargs):
+        kwargs['form'] = SellForm
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
